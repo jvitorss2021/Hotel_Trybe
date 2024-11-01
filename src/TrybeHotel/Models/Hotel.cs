@@ -7,12 +7,12 @@ public class Hotel {
     [Key]
     public int HotelId { get; set; }
 
-    public string ?Name { get; set; }
+    public string? Name { get; set; }
 
-    public string ?Address { get; set; }
+    public string? Address { get; set; }
 
     [ForeignKey("City")]
     public int CityId { get; set; }
-    public City ?City { get; set; }
-    public ICollection<Room> ?Rooms { get; set; }
+    public City? City { get; set; }
+    public ICollection<Room>? Rooms { get; set; }
     }

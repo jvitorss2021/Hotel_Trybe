@@ -9,10 +9,10 @@ namespace TrybeHotel.Models
     public int CityId { get; set; }
 
     [Required]
-    public string ?Name  { get; set; }
+    public string? Name  { get; set; }
     
     [Required]
-    public String State { get; set; }
+    public String? State { get; set; }
 
     public ICollection<Hotel> ?Hotels { get; set; }
 
