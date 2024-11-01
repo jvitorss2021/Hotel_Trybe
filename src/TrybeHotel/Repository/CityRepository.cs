@@ -17,7 +17,8 @@ namespace TrybeHotel.Repository
             return _context.Cities.Select(c => new CityDto
             {
                 CityId = c.CityId,
-                Name = c.Name
+                Name = c.Name,
+                State = c.State
             });
         }
 
@@ -29,14 +30,22 @@ namespace TrybeHotel.Repository
             return new CityDto
             {
                 CityId = city.CityId,
-                Name = city.Name
+                Name = city.Name,
+                State = city.State
             };
         }
 
         // 3. Desenvolva o endpoint PUT /city
         public CityDto UpdateCity(City city)
         {
-           throw new NotImplementedException();
+            _context.Cities.Update(city);
+            _context.SaveChanges();
+            return new CityDto
+            {
+                CityId = city.CityId,
+                Name = city.Name,
+                State = city.State
+            };
         }
 
     }

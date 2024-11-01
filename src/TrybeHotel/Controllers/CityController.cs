@@ -22,16 +22,16 @@ namespace TrybeHotel.Controllers
 
         // 3. Desenvolva o endpoint POST /city
         [HttpPost]
-        public IActionResult PostCity([FromBody] City city){
-            _repository.AddCity(city);
-
-            return CreatedAtAction(nameof(GetCities), new { id = city.CityId }, city);
+        public IActionResult PostCity([FromBody] City city)
+        {
+            var createdCity = _repository.AddCity(city);
+            return CreatedAtAction(nameof(GetCities), new { id = createdCity.CityId }, createdCity);
         }
-        
         // 3. Desenvolva o endpoint PUT /city
         [HttpPut]
         public IActionResult PutCity([FromBody] City city){
-            throw new NotImplementedException();
+            var updatedCity = _repository.UpdateCity(city);
+            return Ok(updatedCity);
         }
     }
 }
