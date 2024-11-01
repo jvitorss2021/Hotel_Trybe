@@ -50,6 +50,7 @@ namespace TrybeHotel.Repository
                             Address = hc.h.Address,
                             CityId = hc.h.CityId,
                             CityName = hc.c.Name,
+                            State = hc.c.State
                         })
                         .FirstOrDefault();
 
@@ -102,6 +103,7 @@ namespace TrybeHotel.Repository
                                 Address = rhc.rh.h.Address,
                                 CityId = rhc.rh.h.CityId,
                                 CityName = rhc.c.Name,
+                                State = rhc.c.State
                             }
                         })
                         .FirstOrDefault();
