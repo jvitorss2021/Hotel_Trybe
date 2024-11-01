@@ -21,18 +21,53 @@ namespace TrybeHotel.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Policy = "Client")]
         public IActionResult Add([FromBody] BookingDtoInsert bookingInsert){
-            throw new NotImplementedException();
+
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            if (email == null)
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                var bookingResponse = _repository.Add(bookingInsert, email);
+                if (bookingResponse == null)
+                {
+                    return Conflict(new { message = "Booking already exists" });
+                }
+                return CreatedAtAction(nameof(GetBooking), new { Bookingid = bookingResponse.BookingId }, bookingResponse);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
 
         [HttpGet("{Bookingid}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Policy = "Client")]
         public IActionResult GetBooking(int Bookingid){
-            throw new NotImplementedException();
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            if (email == null)
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                var bookingResponse = _repository.GetBooking(Bookingid, email);
+                if (bookingResponse == null)
+                {
+                    return Unauthorized();
+                }
+                return Ok(bookingResponse);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

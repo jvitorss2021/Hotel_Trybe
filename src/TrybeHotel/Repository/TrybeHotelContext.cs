@@ -14,8 +14,37 @@ public class TrybeHotelContext : DbContext, ITrybeHotelContext
     }
     public TrybeHotelContext() { }
     
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
+            if (!optionsBuilder.IsConfigured)
+            {
+        {
+            var connectionString = "Server=localhost;Database=TrybeHotel;User=SA;Password=TrybeHotel12!;TrustServerCertificate=True";
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+        }}
+        
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder) {}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        modelBuilder.Entity<City>()
+            .HasMany(c => c.Hotels)
+            .WithOne(h => h.City)
+            .HasForeignKey(h => h.CityId);
+        
+        modelBuilder.Entity<Hotel>()
+            .HasMany(r => r.Rooms)
+            .WithOne(h => h.Hotel)
+            .HasForeignKey(r => r.HotelId);
+
+        modelBuilder.Entity<Room>()
+            .HasMany(b => b.Bookings)
+            .WithOne(r => r.Room)
+            .HasForeignKey(b => b.RoomId);
+
+        modelBuilder.Entity<User>()
+            .HasMany(b => b.Bookings)
+            .WithOne(u => u.User)
+            .HasForeignKey(b => b.UserId);
+        }
 
 }

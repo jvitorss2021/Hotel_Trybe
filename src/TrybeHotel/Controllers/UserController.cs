@@ -9,7 +9,6 @@ namespace TrybeHotel.Controllers
 {
     [ApiController]
     [Route("user")]
-
     public class UserController : Controller
     {
         private readonly IUserRepository _repository;
@@ -17,16 +16,34 @@ namespace TrybeHotel.Controllers
         {
             _repository = repository;
         }
-        
+
         [HttpGet]
-        public IActionResult GetUsers(){
-            throw new NotImplementedException();
+        [Authorize(Policy = "Admin")]
+        public IActionResult GetUsers()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
+            var users = _repository.GetUsers();
+            return Ok(users);
         }
 
         [HttpPost]
         public IActionResult Add([FromBody] UserDtoInsert user)
         {
-            throw new NotImplementedException();
+            if (user == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var userDto = _repository.Add(user);
+            if (userDto == null)
+            {
+                return Conflict(new { message = "User email already exists" });
+            }
+
+            return CreatedAtAction(nameof(GetUsers), new { userId = userDto.UserId }, userDto);
         }
     }
 }
