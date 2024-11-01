@@ -24,6 +24,7 @@ namespace TrybeHotel.Repository
                     Address = h.Address,
                     CityId = h.CityId,
                     CityName = h.City != null ? h.City.Name : null,
+                    State = h.City != null ? h.City.State : null,
                 }).ToList();
         }
         
