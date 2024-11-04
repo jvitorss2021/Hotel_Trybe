@@ -1,6 +1,7 @@
 using System.Net.Http;
 using TrybeHotel.Dto;
 using TrybeHotel.Repository;
+using Newtonsoft.Json;
 
 namespace TrybeHotel.Services
 {
@@ -15,7 +16,19 @@ namespace TrybeHotel.Services
         // 11. Desenvolva o endpoint GET /geo/status
         public async Task<object> GetGeoStatus()
         {
-            throw new NotImplementedException();
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, "https://nominatim.openstreetmap.org/status.php?format=json");
+            requestMessage.Headers.Add("Accept", "application/json");
+            requestMessage.Headers.Add("User-Agent", "aspnet-user-agent");
+
+            var response = await _client.SendAsync(requestMessage);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<object>(content);
+            }
+
+            return default(object);
         }
         
         // 12. Desenvolva o endpoint GET /geo/address
