@@ -6,6 +6,8 @@ namespace TrybeHotel.Dto {
         public int CityId { get; set; }
         public string? CityName { get; set; }
         public string? State { get; set; }
+        public double Lat { get; set; }
+        public double Lon { get; set; }
         public ICollection<RoomDto>? Rooms { get; set; }
 
     }
