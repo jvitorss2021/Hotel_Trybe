@@ -58,7 +58,11 @@ Configure a sua conta Azure e siga as instruções de deploy da documentação o
 A estrutura do projeto e a implementação de diversos componentes foram realizadas com uma organização modular para facilitar a manutenção e a escalabilidade. As principais pastas e camadas implementadas incluem:
 
 Controller: Responsável por gerir as solicitações HTTP e direcioná-las para os serviços apropriados.
+
 Dto (Data Transfer Object): Define os objetos de transferência de dados para estruturar a comunicação entre a API e o cliente, garantindo uma interação eficiente e segura.
+
 Models: Contém as definições das entidades utilizadas na aplicação, refletindo a estrutura dos dados no banco de dados e o modelo de domínio.
+
 Services: Implementa a lógica de negócio e regras essenciais para o funcionamento do sistema, isolando a lógica do controlador.
+
 Repository: Realiza operações de acesso aos dados, comunicando-se diretamente com o banco de dados através do Entity Framework Core.
