@@ -33,20 +33,21 @@ Conta no Azure (opcional para deploy em produção).
 Passos:
 
 Clone este repositório:
-bash
-Copiar código
+```bash
 git clone git@github.com:jvitorss2021/Hotel_Trybe.git
+```
 Navegue até o diretório do projeto:
-bash
-Copiar código
 cd seu-repositorio
 Instale as dependências
 Entre na pasta src/
-Execute o comando: dotnet restore
+Execute o comando: 
+```bash
+dotnet restore
+```
 Execute o projeto com Docker Compose:
-bash
-Copiar código
+```bash
 docker-compose up -d --build
+```
 Acessar a API:
 
 A API estará acessível em http://localhost:5000 (ou a porta configurada).
